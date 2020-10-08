@@ -19,6 +19,7 @@ allprojects {
     }
 }
 //una prueba de git
+//segunda prueba jejeje
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
