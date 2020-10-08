@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crud_flutter/googlepage.dart';
 import 'package:crud_flutter/page.dart';
@@ -172,10 +173,11 @@ class _LoginPageState extends State<LoginPage> {
 
   void signInWithEmail() async {
     // marked async
-    FirebaseUser user;
+
+    UserCredential user;
     try {
       user = (await _auth.signInWithEmailAndPassword(
-          email: _emailController.text, password: _passwordController.text)) as FirebaseUser;
+          email: _emailController.text, password: _passwordController.text));
     } catch (e) {
       print(e.toString());
     } finally {
@@ -188,6 +190,13 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
+
+  void signInWithEmail2() {
+    String user2 = _emailController.text;
+    String pw2 = _passwordController.text;
+        _pushPage(context, Pintar());
+  }
+
 }
 //e_mo04@outlook.com
 void _pushPage(BuildContext context, Widget page) {
