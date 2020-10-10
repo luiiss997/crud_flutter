@@ -32,8 +32,8 @@ class _PersonaScreenState extends State<PersonaScreen> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        title: Text('Personas DB'),
-        backgroundColor: Colors.deepOrange,
+        title: Text('Persona'),
+        backgroundColor: Colors.green,
       ),
       body: Container(
         height: 570.0,
@@ -42,10 +42,12 @@ class _PersonaScreenState extends State<PersonaScreen> {
           child: Center(
             child: Column(
               children: <Widget> [
-                TextField(
+                TextFormField(
                   controller: _nombreController,
-                  style: TextStyle(fontSize: 17.0, color: Colors.deepOrange),
-                  decoration: InputDecoration(icon: Icon(Icons.person),
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 17.0, color: Colors.green),
+                  decoration: InputDecoration(icon: Icon(Icons.accessible_forward_sharp),
                     labelText: 'Nombre'
                   ),
                 ),
@@ -53,8 +55,10 @@ class _PersonaScreenState extends State<PersonaScreen> {
                 Divider(),
                 TextField(
                   controller: _ap_patController,
-                  style: TextStyle(fontSize: 17.0, color: Colors.deepOrange),
-                  decoration: InputDecoration(icon: Icon(Icons.person),
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 17.0, color: Colors.green),
+                  decoration: InputDecoration(icon: Icon(Icons.accessible_forward_sharp),
                       labelText: 'Apellido paterno'
                   ),
                 ),
@@ -62,8 +66,10 @@ class _PersonaScreenState extends State<PersonaScreen> {
                 Divider(),
                 TextField(
                   controller: _ap_matController,
-                  style: TextStyle(fontSize: 17.0, color: Colors.deepOrange),
-                  decoration: InputDecoration(icon: Icon(Icons.person),
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 17.0, color: Colors.green),
+                  decoration: InputDecoration(icon: Icon(Icons.accessible_forward_sharp),
                       labelText: 'Apellido materno'
                   ),
                 ),
@@ -71,8 +77,10 @@ class _PersonaScreenState extends State<PersonaScreen> {
                 Divider(),
                 TextField(
                   controller: _numController,
-                  style: TextStyle(fontSize: 17.0, color: Colors.deepOrange),
-                  decoration: InputDecoration(icon: Icon(Icons.person),
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(fontSize: 17.0, color: Colors.green),
+                  decoration: InputDecoration(icon: Icon(Icons.add_call),
                       labelText: 'Número'
                   ),
                 ),
@@ -80,8 +88,10 @@ class _PersonaScreenState extends State<PersonaScreen> {
                 Divider(),
                 TextField(
                   controller: _correoController,
-                  style: TextStyle(fontSize: 17.0, color: Colors.deepOrange),
-                  decoration: InputDecoration(icon: Icon(Icons.person),
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.emailAddress,
+                  style: TextStyle(fontSize: 17.0, color: Colors.green),
+                  decoration: InputDecoration(icon: Icon(Icons.email),
                       labelText: 'Correo'
                   ),
                 ),
@@ -101,7 +111,8 @@ class _PersonaScreenState extends State<PersonaScreen> {
                       'num' : num,
                       'correo' : correo,
                     }).then((_){
-                      Navigator.pop(context);
+
+                          Navigator.pop(context);
                     });
                   }else {
                     personasReference.push().set({
