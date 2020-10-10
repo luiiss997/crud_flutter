@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crud_flutter/page.dart';
+import 'package:flutter/widgets.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -78,6 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                             controller: _passwordController,
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.text,
+                            obscureText: true,
                             decoration: new InputDecoration(
                               labelText: 'Password',
                               icon: Icon(
@@ -183,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
         if(_emailController.text=="e_mo04@outlook.com"){
           _pushPage(context, ListViewPersonas());
         }else{
-          _pushPage(context, ListViewPersonas2());
+          _pushPage(context, listaViewPersonas2());
         }
       } else {
         // sign in unsuccessful
