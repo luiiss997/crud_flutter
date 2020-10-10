@@ -6,7 +6,6 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-
     MaterialApp(
       title: 'Google Sign In',
       home: LoginPage(),

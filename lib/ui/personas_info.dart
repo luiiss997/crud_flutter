@@ -10,8 +10,7 @@ class PersonaInfo extends StatefulWidget {
   _PersonaInfoState createState() => _PersonaInfoState();
 }
 
-final personaRefencia = FirebaseDatabase.instance.reference().child('persona');
-
+final personaRefencia = FirebaseDatabase.instance.reference().child('personas');
 
 class _PersonaInfoState extends State<PersonaInfo> {
 
@@ -25,6 +24,7 @@ class _PersonaInfoState extends State<PersonaInfo> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.persona.num);
     return Scaffold(
       appBar: AppBar(
         title: Text('Persona Informacion'),

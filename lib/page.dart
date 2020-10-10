@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
@@ -17,13 +15,11 @@ class _ListViewPersonasState extends State<ListViewPersonas2>{
   StreamSubscription<Event> _onPersonaAddedSubscripcion;
   StreamSubscription<Event> _onPersonaCambioSubscripcion;
 
-
   @override
   void initState() {
     super.initState();
     items = new List();
   }
-
 
   @override
   void dispose() {

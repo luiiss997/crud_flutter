@@ -31,8 +31,8 @@ class Persona{
     _id = snapshot.key;
     _nombre = snapshot.value['nombre'];
     _ap_pat = snapshot.value['ap_pat'];
-    _ap_mat = snapshot.value['_ap_mat'];
-    _num = snapshot.value['_num'];
-    _correo = snapshot.value['_correo'];
+    _ap_mat = snapshot.value['ap_mat'];
+    _num = snapshot.value['num'];
+    _correo = snapshot.value['correo'];
   }
 }

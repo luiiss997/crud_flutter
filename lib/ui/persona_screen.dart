@@ -88,28 +88,32 @@ class _PersonaScreenState extends State<PersonaScreen> {
                 Padding(padding: EdgeInsets.only(top: 8.0),),
                 Divider(),
                 FlatButton(onPressed:() {
+                  String nombre=_nombreController.text;
+                  String materno=_ap_matController.text;
+                  String paterno=_ap_patController.text;
+                  String num=_numController.text;
+                  String correo=_correoController.text;
                   if(widget.persona.id !=null){
                     personasReference.child(widget.persona.id).set({
-                      'nombre' : _nombreController.text,
-                      'ap_pat' : _ap_patController.text,
-                      'ap_mat' : _ap_matController.text,
-                      'num' : _numController,
-                      'correo' : _correoController.text,
+                      'nombre' : nombre,
+                      'ap_pat' : paterno,
+                      'ap_mat' : materno,
+                      'num' : num,
+                      'correo' : correo,
                     }).then((_){
                       Navigator.pop(context);
                     });
                   }else {
                     personasReference.push().set({
-                      'nombre' : _nombreController.text,
-                      'ap_pat' : _ap_patController.text,
-                      'ap_mat' : _ap_matController.text,
-                      'num' : _numController,
-                      'correo' : _correoController.text,
+                      'nombre' : nombre,
+                      'ap_pat' : paterno,
+                      'ap_mat' : materno,
+                      'num' : num,
+                      'correo' : correo,
                     }).then((_){
                       Navigator.pop(context);
                     });
                   }
-
                 },
                   child: (widget.persona.id !=null) ? Text('Actualizar'):Text('Agregar')),
               ],
