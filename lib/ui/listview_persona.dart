@@ -35,7 +35,7 @@ class _ListViewPersonasState extends State<ListViewPersonas>{
   void dispose() {
     super.dispose();
     _onPersonaAddedSubscripcion.cancel();
-    _onPersonaAddedSubscripcion.cancel();
+    _onPersonaCambioSubscripcion.cancel();
   }
 
   @override
