@@ -1,3 +1,4 @@
+import 'package:crud_flutter/ui/listview_persona.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -170,7 +171,6 @@ class _LoginPageState extends State<LoginPage> {
 
   void signInWithEmail() async {
     // marked async
-
     UserCredential user;
     try {
       user = (await _auth.signInWithEmailAndPassword(
@@ -180,21 +180,19 @@ class _LoginPageState extends State<LoginPage> {
     } finally {
       if (user != null) {
         // sign in successful!
-        _pushPage(context, Pintar());
+        if(_emailController.text=="e_mo04@outlook.com"){
+          _pushPage(context, ListViewPersonas());
+        }else{
+          _pushPage(context, ListViewPersonas2());
+        }
       } else {
         // sign in unsuccessful
         print('sign in Not');
       }
     }
   }
-
-  void signInWithEmail2() {
-    String user2 = _emailController.text;
-    String pw2 = _passwordController.text;
-        _pushPage(context, Pintar());
-  }
-
 }
+
 //e_mo04@outlook.com
 void _pushPage(BuildContext context, Widget page) {
   Navigator.of(context).push(
