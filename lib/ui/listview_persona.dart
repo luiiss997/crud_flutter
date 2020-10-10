@@ -134,7 +134,7 @@ class _ListViewPersonasState extends State<ListViewPersonas>{
   void _navegarAlProducto(BuildContext context, Persona persona) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PersonaInformacion(persona)),
+      MaterialPageRoute(builder: (context) => PersonaInfo(persona)),
     );
   }
 
@@ -143,7 +143,7 @@ class _ListViewPersonasState extends State<ListViewPersonas>{
       context,
       MaterialPageRoute(
           builder: (context) =>
-              PersonaScreen(Persona(null, '', '', '', '', '', ''))),
+              PersonaScreen(Persona(null, '', '', '', '', ''))),
     );
   }
 }
