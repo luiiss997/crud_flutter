@@ -77,6 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: new TextFormField(
                             maxLines: 1,
                             controller: _passwordController,
+
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.text,
                             obscureText: true,
