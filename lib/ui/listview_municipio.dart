@@ -143,7 +143,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
       context,
       MaterialPageRoute(
           builder: (context) =>
-              MunicipioScreen(Municipio(null, '', '', '', '', ''))),
+              MunicipioScreen(Municipio(null, '', '', '', '', '', '', '', ''))),
     );
   }
 }
