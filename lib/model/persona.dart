@@ -20,6 +20,7 @@ class Persona {
     this._correo = obj['correo'];
   }
 
+
   String get id => _id;
 
   String get nombre => _nombre;

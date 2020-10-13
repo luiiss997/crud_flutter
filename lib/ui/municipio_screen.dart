@@ -25,6 +25,16 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
   TextEditingController _clima;
   TextEditingController _localizacion;
 
+  String poblacion;
+  int _value=1;
+  List<String> lista = [
+    "Menor a 15,000",
+    "15,000 - 50,000",
+    "50,000 - 250,000",
+    "250,000 - 500,000",
+    "500,000 - 1,000,000",
+    "Mayor a 10K2"];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -48,7 +58,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
         backgroundColor: Colors.green,
       ),
       body: Container(
-        height: 570.0,
+        height: 800.0,
         padding: const EdgeInsets.all(20.0),
         child: Card(
           child: Center(
@@ -131,6 +141,67 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                   padding: EdgeInsets.only(top: 8.0),
                 ),
                 Divider(),
+                TextField(
+                  controller: _altitud,//OBJ ASPECTO
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 17.0, color: Colors.green),
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.email), labelText: 'Elevación'),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                ),
+                Divider(),
+                TextField(
+                  controller: _altitud,//OBJ ASPECTO
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 17.0, color: Colors.green),
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.email), labelText: 'Rio o Canal'),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                ),
+                Divider(),
+                TextField(
+                  controller: _altitud,//OBJ ASPECTO
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 17.0, color: Colors.green),
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.email), labelText: 'Cuerpo de Agua'),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                ),
+                Divider(),
+                DropdownButton(
+                    value: _value,//OBJ ASPECTO
+                    items: [
+                      DropdownMenuItem(
+                        child: Text("First Item"),
+                        value: 1,
+                      ),
+                      DropdownMenuItem(
+                        child: Text("Second Item"),
+                        value: 2,
+                      ),
+                      DropdownMenuItem(
+                          child: Text("Third Item"),
+                          value: 3
+                      ),
+                      DropdownMenuItem(
+                          child: Text("Fourth Item"),
+                          value: 4
+                      )
+                    ],
+                    onChanged: (value) {
+                      setState(() {
+                        _value = value;
+                      });
+                    }),
                 TextField(
                   controller: _clima,
                   textInputAction: TextInputAction.next,
