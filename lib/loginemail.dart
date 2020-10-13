@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
         if(_emailController.text=="e_mo04@outlook.com"){
           _pushPage(context, ListViewPersonas());
         }else{
-          _pushPage(context, listaViewPersonas2());
+          _pushPage(context, ListViewPersonas2());
         }
       } else {
         // sign in unsuccessful
