@@ -76,13 +76,14 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
                               )
                             ],
                           ),
-                          onTap: () => _navegarAlaInformacionMunicipiol(context, items[position]))),
+                          onTap: () => _navegarAlProducto(context, items[position]))),
                       IconButton(
                           icon: Icon(Icons.delete, color: Colors.redAccent),
                           onPressed: () => _eliminarMunicipio(context, items[position],position)),
                       IconButton(
                           icon: Icon(Icons.edit, color: Colors.greenAccent),
-                          onPressed: () => _navegarAlProducto(context, items[position]))
+                          onPressed: () => _navegarAlaInformacionMunicipiol(context, items[position])),
+
                     ],
                     ),
                   ],
@@ -115,7 +116,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
     await municipiosReference.child(municipio.id).remove().then((_) {
       setState(() {
         items.removeAt(position);
-        Navigator.of(context).pop();
+       // Navigator.of(context).pop();
       });
     });
   }

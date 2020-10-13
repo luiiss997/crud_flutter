@@ -31,10 +31,11 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
         backgroundColor: Colors.green,
       ),
       body: Container(
-        height: 400.0,
+        height: 500.0,
         padding: const EdgeInsets.all(20.0),
         child: Card(
           child: Center(
+            child:SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 new Text("Clave : ${widget.municipio.clave}", style: TextStyle(fontSize: 18.0),),
@@ -63,6 +64,7 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
                 Divider(),
               ],
             ),
+          ),
           ),
         ),
       ),

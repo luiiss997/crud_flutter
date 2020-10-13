@@ -1,5 +1,3 @@
-//import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
@@ -10,7 +8,7 @@ class ListViewPersonas2 extends StatefulWidget{
   _ListViewPersonasState createState() => _ListViewPersonasState();
 }
 
-final personasReference = FirebaseDatabase.instance.reference().child('personas');
+final personasReference = FirebaseDatabase.instance.reference().child('municipio');
 
 class _ListViewPersonasState extends State<ListViewPersonas2>{
   List<Persona> items;
