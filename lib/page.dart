@@ -3,19 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
-import 'package:crud_flutter/model/municipio.dart';
+import 'package:crud_flutter/model/persona.dart';
 
-class ListViewMunicipios2 extends StatefulWidget{
+class ListViewPersonas2 extends StatefulWidget{
   @override
-  _ListViewMunicipiosState createState() => _ListViewMunicipiosState();
+  _ListViewPersonasState createState() => _ListViewPersonasState();
 }
 
-final municipiosReference = FirebaseDatabase.instance.reference().child('municipios');
+final personasReference = FirebaseDatabase.instance.reference().child('personas');
 
-class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
-  List<Municipio> items;
-  StreamSubscription<Event> _onMunicipioAddedSubscripcion;
-  StreamSubscription<Event> _onMunicipioCambioSubscripcion;
+class _ListViewPersonasState extends State<ListViewPersonas2>{
+  List<Persona> items;
+  StreamSubscription<Event> _onPersonaAddedSubscripcion;
+  StreamSubscription<Event> _onPersonaCambioSubscripcion;
 
 
   @override
@@ -28,15 +28,15 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
   @override
   void dispose() {
     super.dispose();
-    _onMunicipioAddedSubscripcion.cancel();
-    _onMunicipioCambioSubscripcion.cancel();
+    _onPersonaAddedSubscripcion.cancel();
+    _onPersonaCambioSubscripcion.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      title: 'Municipios',
+      title: 'Personas',
       home: Scaffold(
         appBar: AppBar(
           title: Text('Información'),
@@ -54,7 +54,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
                       Expanded(child: ListTile(title: Text('${items[position].nombre}',
                         style: TextStyle(color: Colors.blueAccent, fontSize: 21.0),
                       ),
-                          subtitle: Text('${items[position].clave}',
+                          subtitle: Text('${items[position].ap_pat}',
                             style: TextStyle(
                                 color: Colors.blueAccent,
                                 fontSize: 21.0
@@ -65,7 +65,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
                               CircleAvatar(
                                 backgroundColor: Colors.amberAccent,
                                 radius: 17.0,
-                                child: Text('${items[position].significado}',
+                                child: Text('${items[position].ap_mat}',
                                   style: TextStyle(
                                       color: Colors.blueAccent,
                                       fontSize: 21.0

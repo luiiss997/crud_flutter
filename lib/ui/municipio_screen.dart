@@ -52,6 +52,8 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Card(
           child: Center(
+            child:
+            SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 TextFormField(
@@ -166,27 +168,27 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
 
                       if (widget.municipio.id != null) {
                         municipiosReference.child(widget.municipio.id).set({
-                          'id': clv,
-                          'municipio': mun,
+                          'clave': clv,
+                          'nombre': mun,
                           'significado': sign,
                           'cabecera': cabe,
                           'superficie': superf,
                           'altitud': alt,
                           'clima': clima,
-                          'loca': loca,
+                          'localizacion': loca,
                         }).then((_) {
                           Navigator.pop(context);
                         });
                       } else {
                         municipiosReference.push().set({
-                          'id': clv,
-                          'municipio': mun,
+                          'clave': clv,
+                          'nombre': mun,
                           'significado': sign,
                           'cabecera': cabe,
                           'superficie': superf,
                           'altitud': alt,
                           'clima': clima,
-                          'loca': loca,
+                          'localizacion': loca,
                         }).then((_) {
                           Navigator.pop(context);
                         });
@@ -198,6 +200,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
               ],
             ),
           ),
+        ),
         ),
       ),
     );
