@@ -18,7 +18,6 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
   StreamSubscription<Event> _onMunicipioAddedSubscripcion;
   StreamSubscription<Event> _onMunicipioCambioSubscripcion;
 
-
   @override
   void initState() {
     super.initState();
