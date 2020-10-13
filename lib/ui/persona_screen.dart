@@ -4,16 +4,11 @@ import 'package:crud_flutter/model/persona.dart';
 
 class PersonaScreen extends StatefulWidget {
   final Persona persona;
-
   PersonaScreen(this.persona);
-
   @override
   _PersonaScreenState createState() => _PersonaScreenState();
 }
-
-final personasReference =
-    FirebaseDatabase.instance.reference().child('personas');
-
+final personasReference = FirebaseDatabase.instance.reference().child('personas');
 class _PersonaScreenState extends State<PersonaScreen> {
   List<Persona> items;
   TextEditingController _nombreController;
@@ -21,7 +16,6 @@ class _PersonaScreenState extends State<PersonaScreen> {
   TextEditingController _ap_matController;
   TextEditingController _numController;
   TextEditingController _correoController;
-
   @override
   void initState() {
     // TODO: implement initState
@@ -31,118 +25,93 @@ class _PersonaScreenState extends State<PersonaScreen> {
     _ap_matController = new TextEditingController(text: widget.persona.ap_mat);
     _numController = new TextEditingController(text: widget.persona.num);
     _correoController = new TextEditingController(text: widget.persona.correo);
-  }
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        title: Text('Persona'),
-        backgroundColor: Colors.green,
+        title: Text('Personas DB'),
+        backgroundColor: Colors.deepOrange,
       ),
       body: Container(
         height: 570.0,
-        padding: const EdgeInsets.all(20.0),
+        padding:  const EdgeInsets.all(20.0),
         child: Card(
           child: Center(
             child: Column(
-              children: <Widget>[
-                TextFormField(
+              children: <Widget> [
+                TextField(
                   controller: _nombreController,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 17.0, color: Colors.green),
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.accessible_forward_sharp),
-                      labelText: 'Nombre'),
+                  style: TextStyle(fontSize: 17.0, color: Colors.deepOrange),
+                  decoration: InputDecoration(icon: Icon(Icons.person),
+                    labelText: 'Nombre'
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                ),
+                Padding(padding: EdgeInsets.only(top: 8.0),),
                 Divider(),
                 TextField(
                   controller: _ap_patController,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 17.0, color: Colors.green),
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.accessible_forward_sharp),
-                      labelText: 'Apellido paterno'),
+                  style: TextStyle(fontSize: 17.0, color: Colors.deepOrange),
+                  decoration: InputDecoration(icon: Icon(Icons.person),
+                      labelText: 'Apellido paterno'
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                ),
+                Padding(padding: EdgeInsets.only(top: 8.0),),
                 Divider(),
                 TextField(
                   controller: _ap_matController,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 17.0, color: Colors.green),
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.accessible_forward_sharp),
-                      labelText: 'Apellido materno'),
+                  style: TextStyle(fontSize: 17.0, color: Colors.deepOrange),
+                  decoration: InputDecoration(icon: Icon(Icons.person),
+                      labelText: 'Apellido materno'
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                ),
+                Padding(padding: EdgeInsets.only(top: 8.0),),
                 Divider(),
                 TextField(
                   controller: _numController,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(fontSize: 17.0, color: Colors.green),
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.add_call), labelText: 'Número'),
+                  style: TextStyle(fontSize: 17.0, color: Colors.deepOrange),
+                  decoration: InputDecoration(icon: Icon(Icons.person),
+                      labelText: 'Número'
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                ),
+                Padding(padding: EdgeInsets.only(top: 8.0),),
                 Divider(),
                 TextField(
                   controller: _correoController,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: 17.0, color: Colors.green),
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.email), labelText: 'Correo'),
+                  style: TextStyle(fontSize: 17.0, color: Colors.deepOrange),
+                  decoration: InputDecoration(icon: Icon(Icons.person),
+                      labelText: 'Correo'
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                ),
+                Padding(padding: EdgeInsets.only(top: 8.0),),
                 Divider(),
-                FlatButton(
-                    onPressed: () {
-                      String nombre = _nombreController.text;
-                      String materno = _ap_matController.text;
-                      String paterno = _ap_patController.text;
-                      String num = _numController.text;
-                      String correo = _correoController.text;
-                      if (widget.persona.id != null) {
-                        personasReference.child(widget.persona.id).set({
-                          'nombre': nombre,
-                          'ap_pat': paterno,
-                          'ap_mat': materno,
-                          'num': num,
-                          'correo': correo,
-                        }).then((_) {
-                          Navigator.pop(context);
-                        });
-                      } else {
-                        personasReference.push().set({
-                          'nombre': nombre,
-                          'ap_pat': paterno,
-                          'ap_mat': materno,
-                          'num': num,
-                          'correo': correo,
-                        }).then((_) {
-                          Navigator.pop(context);
-                        });
-                      }
-                    },
-                    child: (widget.persona.id != null)
-                        ? Text('Actualizar')
-                        : Text('Agregar')),
+                FlatButton(onPressed:() {
+                  if(widget.persona.id !=null){
+                    personasReference.child(widget.persona.id).set({
+                      'nombre' : _nombreController.text,
+                      'ap_pat' : _ap_patController.text,
+                      'ap_mat' : _ap_matController.text,
+                      'num' : _numController,
+                      'correo' : _correoController.text,
+                    }).then((_){
+                      Navigator.pop(context);
+                    });
+                  }else {
+                    personasReference.push().set({
+                      'nombre' : _nombreController.text,
+                      'ap_pat' : _ap_patController.text,
+                      'ap_mat' : _ap_matController.text,
+                      'num' : _numController,
+                      'correo' : _correoController.text,
+                    }).then((_){
+                      Navigator.pop(context);
+                    });
+                  }
+
+                },
+                  child: (widget.persona.id !=null) ? Text('Actualizar'):Text('Agregar')),
               ],
             ),
           ),
@@ -151,3 +120,4 @@ class _PersonaScreenState extends State<PersonaScreen> {
     );
   }
 }
+
