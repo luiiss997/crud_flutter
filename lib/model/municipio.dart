@@ -47,7 +47,7 @@ class Municipio{
 
   Municipio.fromSnapShop(DataSnapshot snapshot) {
     _id = snapshot.key;
-    _clave = snapshot.value[clave];
+    _clave = snapshot.value['clave'];
     _nombre = snapshot.value['nombre'];
     _significado = snapshot.value['significado'];
     _cabecera = snapshot.value['cabecera'];
