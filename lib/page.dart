@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
+import 'package:crud_flutter/ui/municipios_info.dart';
 import 'package:crud_flutter/model/municipio.dart';
 
 //ne memes flutter 7n7
@@ -22,6 +23,10 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
   void initState() {
     super.initState();
     items = new List();
+    _onMunicipioAddedSubscripcion =
+        municipiosReference.onChildAdded.listen(_onMunicipioAdded);
+    _onMunicipioCambioSubscripcion =
+        municipiosReference.onChildChanged.listen(_onMunicipioCambio);
   }
 
 
@@ -74,6 +79,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
                               )
                             ],
                           ),
+                          onTap: () => _navegarAlProducto(context, items[position]),
                       )),
                     ],
                     ),
@@ -83,6 +89,26 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
           ),
         ),
       ),
+    );
+  }
+
+  void _onMunicipioAdded(Event event){
+    setState(() {
+      items.add(new Municipio.fromSnapShop(event.snapshot));
+    });
+  }
+
+  void _onMunicipioCambio(Event event){
+    var oldMunicipioValor=items.singleWhere((municipio) => municipio.id == event.snapshot.key);
+    setState(() {
+      items[items.indexOf(oldMunicipioValor)] = new Municipio.fromSnapShop(event.snapshot);
+    });
+  }
+
+  void _navegarAlProducto(BuildContext context, Municipio municipio) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio)),
     );
   }
 
