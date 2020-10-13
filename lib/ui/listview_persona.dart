@@ -3,46 +3,46 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
-import 'package:crud_flutter/ui/persona_screen.dart';
+import 'package:crud_flutter/ui/municipio_screen.dart';
 import 'package:crud_flutter/ui/municipios_info.dart';
-import 'package:crud_flutter/model/persona.dart';
+import 'package:crud_flutter/model/municipio.dart';
 
-class ListViewPersonas extends StatefulWidget{
+class ListViewMunicipios extends StatefulWidget{
   @override
-  _ListViewPersonasState createState() => _ListViewPersonasState();
+  _ListViewMunicipiosState createState() => _ListViewMunicipiosState();
 }
 
-final personasReference = FirebaseDatabase.instance.reference().child('personas');
+final municipiosReference = FirebaseDatabase.instance.reference().child('municipios');
 
-class _ListViewPersonasState extends State<ListViewPersonas>{
-  List<Persona> items;
-  StreamSubscription<Event> _onPersonaAddedSubscripcion;
-  StreamSubscription<Event> _onPersonaCambioSubscripcion;
+class _ListViewMunicipiosState extends State<ListViewMunicipios>{
+  List<Municipio> items;
+  StreamSubscription<Event> _onMunicipioAddedSubscripcion;
+  StreamSubscription<Event> _onMunicipioCambioSubscripcion;
 
 
   @override
   void initState() {
     super.initState();
     items = new List();
-    _onPersonaAddedSubscripcion =
-        personasReference.onChildAdded.listen(_onPersonaAdded);
-    _onPersonaCambioSubscripcion =
-        personasReference.onChildChanged.listen(_onPersonaCambio);
+    _onMunicipioAddedSubscripcion =
+        municipiosReference.onChildAdded.listen(_onMunicipioAdded);
+    _onMunicipioCambioSubscripcion =
+        municipiosReference.onChildChanged.listen(_onMunicipioCambio);
   }
 
 
   @override
   void dispose() {
     super.dispose();
-    _onPersonaAddedSubscripcion.cancel();
-    _onPersonaCambioSubscripcion.cancel();
+    _onMunicipioAddedSubscripcion.cancel();
+    _onMunicipioCambioSubscripcion.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      title: 'Personas',
+      title: 'Municipios',
       home: Scaffold(
         appBar: AppBar(
           title: Text('Información'),
@@ -60,7 +60,7 @@ class _ListViewPersonasState extends State<ListViewPersonas>{
                       Expanded(child: ListTile(title: Text('${items[position].nombre}',
                         style: TextStyle(color: Colors.blueAccent, fontSize: 21.0),
                       ),
-                          subtitle: Text('${items[position].ap_pat}',
+                          subtitle: Text('${items[position].clave}',
                             style: TextStyle(
                                 color: Colors.blueAccent,
                                 fontSize: 21.0
@@ -71,7 +71,7 @@ class _ListViewPersonasState extends State<ListViewPersonas>{
                               CircleAvatar(
                                 backgroundColor: Colors.amberAccent,
                                 radius: 17.0,
-                                child: Text('${items[position].ap_mat}',
+                                child: Text('${items[position].significado}',
                                   style: TextStyle(
                                       color: Colors.blueAccent,
                                       fontSize: 21.0
@@ -80,10 +80,10 @@ class _ListViewPersonasState extends State<ListViewPersonas>{
                               )
                             ],
                           ),
-                          onTap: () => _navegarAlaInformacionPersonal(context, items[position]))),
+                          onTap: () => _navegarAlaInformacionMunicipiol(context, items[position]))),
                       IconButton(
                           icon: Icon(Icons.delete, color: Colors.redAccent),
-                          onPressed: () => _eliminarPersona(context, items[position],position)),
+                          onPressed: () => _eliminarMunicipio(context, items[position],position)),
                       IconButton(
                           icon: Icon(Icons.edit, color: Colors.greenAccent),
                           onPressed: () => _navegarAlProducto(context, items[position]))
@@ -97,26 +97,26 @@ class _ListViewPersonasState extends State<ListViewPersonas>{
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add, color: Colors.white),
           backgroundColor: Colors.deepPurpleAccent,
-          onPressed: () => _createNewPersona(context),
+          onPressed: () => _createNewMunicipio(context),
         ),
       ),
     );
   }
-  void _onPersonaAdded(Event event){
+  void _onMunicipioAdded(Event event){
     setState(() {
-      items.add(new Persona.fromSnapShop(event.snapshot));
+      items.add(new Municipio.fromSnapShop(event.snapshot));
     });
   }
 
-  void _onPersonaCambio(Event event){
-    var oldPersonaValor=items.singleWhere((persona) => persona.id == event.snapshot.key);
+  void _onMunicipioCambio(Event event){
+    var oldMunicipioValor=items.singleWhere((municipio) => municipio.id == event.snapshot.key);
     setState(() {
-      items[items.indexOf(oldPersonaValor)] = new Persona.fromSnapShop(event.snapshot);
+      items[items.indexOf(oldMunicipioValor)] = new Municipio.fromSnapShop(event.snapshot);
     });
   }
 
-  void _eliminarPersona(BuildContext context, Persona persona, int position)async {
-    await personasReference.child(persona.id).remove().then((_) {
+  void _eliminarMunicipio(BuildContext context, Municipio municipio, int position)async {
+    await municipiosReference.child(municipio.id).remove().then((_) {
       setState(() {
         items.removeAt(position);
         Navigator.of(context).pop();
@@ -124,26 +124,26 @@ class _ListViewPersonasState extends State<ListViewPersonas>{
     });
   }
 
-  void _navegarAlaInformacionPersonal(BuildContext context, Persona persona) async {
+  void _navegarAlaInformacionMunicipiol(BuildContext context, Municipio municipio) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PersonaScreen(persona)),
+      MaterialPageRoute(builder: (context) => MunicipioScreen(municipio)),
     );
   }
 
-  void _navegarAlProducto(BuildContext context, Persona persona) async {
+  void _navegarAlProducto(BuildContext context, Municipio municipio) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PersonaInfo(persona)),
+      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio)),
     );
   }
 
-  void _createNewPersona(BuildContext context) async {
+  void _createNewMunicipio(BuildContext context) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) =>
-              PersonaScreen(Persona(null, '', '', '', '', ''))),
+              MunicipioScreen(Municipio(null, '', '', '', '', ''))),
     );
   }
 }
