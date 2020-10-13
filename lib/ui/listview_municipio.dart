@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
@@ -19,7 +17,6 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
   StreamSubscription<Event> _onMunicipioAddedSubscripcion;
   StreamSubscription<Event> _onMunicipioCambioSubscripcion;
 
-
   @override
   void initState() {
     super.initState();
@@ -29,7 +26,6 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
     _onMunicipioCambioSubscripcion =
         municipiosReference.onChildChanged.listen(_onMunicipioCambio);
   }
-
 
   @override
   void dispose() {

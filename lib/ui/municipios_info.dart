@@ -24,7 +24,7 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.municipio.num);
+    print(widget.municipio.clave);
     return Scaffold(
       appBar: AppBar(
         title: Text('Municipio Informacion'),
