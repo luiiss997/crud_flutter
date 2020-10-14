@@ -20,15 +20,22 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
   List<Aspecto> aspects;
   StreamSubscription<Event> _onMunicipioAddedSubscripcion;
   StreamSubscription<Event> _onMunicipioCambioSubscripcion;
+  StreamSubscription<Event> _onAspectoAddedSubscripcion;
+  StreamSubscription<Event> _onAspectoCambioSubscripcion;
 
   @override
   void initState() {
     super.initState();
     items = new List();
+    aspects = new List();
     _onMunicipioAddedSubscripcion =
         municipiosReference.onChildAdded.listen(_onMunicipioAdded);
     _onMunicipioCambioSubscripcion =
         municipiosReference.onChildChanged.listen(_onMunicipioCambio);
+    _onAspectoAddedSubscripcion =
+        aspectoReference.onChildAdded.listen(_onAspectoAdded);
+    _onAspectoCambioSubscripcion =
+        aspectoReference.onChildChanged.listen(_onAspectoCambio);
   }
 
 
@@ -100,10 +107,24 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
     });
   }
 
+  void _onAspectoAdded(Event event){
+    setState(() {
+      aspects.add(new Aspecto.fromSnapShop(event.snapshot));
+    });
+  }
+
+
   void _onMunicipioCambio(Event event){
     var oldMunicipioValor=items.singleWhere((municipio) => municipio.id == event.snapshot.key);
     setState(() {
       items[items.indexOf(oldMunicipioValor)] = new Municipio.fromSnapShop(event.snapshot);
+    });
+  }
+
+  void _onAspectoCambio(Event event){
+    var oldAspect=aspects.singleWhere((aspecto) => aspecto.id == event.snapshot.key);
+    setState(() {
+      aspects[aspects.indexOf(oldAspect)] = new Aspecto.fromSnapShop(event.snapshot);
     });
   }
 
@@ -113,5 +134,6 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
       MaterialPageRoute(builder: (context) => MunicipioInfo(municipio, aspecto)),
     );
   }
+
 
 }

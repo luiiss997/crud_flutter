@@ -34,7 +34,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
     _onAspectoAddedSubscripcion =
         aspectoReference.onChildAdded.listen(_onAspectoAdded);
     _onAspectoCambioSubscripcion =
-        aspectoReference.onChildChanged.listen(_onMunicipioCambio);
+        aspectoReference.onChildChanged.listen(_onAspectoCambio);
   }
 
   @override
@@ -125,10 +125,8 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
 
   void _onMunicipioCambio(Event event){
     var oldMunicipioValor=items.singleWhere((municipio) => municipio.id == event.snapshot.key);
-    var oldAspect=aspects.singleWhere((aspecto) => aspecto.id == event.snapshot.key);
     setState(() {
       items[items.indexOf(oldMunicipioValor)] = new Municipio.fromSnapShop(event.snapshot);
-      aspects[aspects.indexOf(oldAspect)] = new Aspecto.fromSnapShop(event.snapshot);
     });
   }
 
