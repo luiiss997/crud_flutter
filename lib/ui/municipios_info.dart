@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:crud_flutter/model/municipio.dart';
 import 'package:crud_flutter/model/aspectos.dart';
+import 'package:crud_flutter/model/zona.dart';
 
 class MunicipioInfo extends StatefulWidget {
   final Municipio municipio;
   final Aspecto aspecto;
-
-  MunicipioInfo(this.municipio, this.aspecto);
+  final Zona zona;
+  MunicipioInfo(this.municipio, this.aspecto, this.zona);
 
   @override
   _MunicipioInfoState createState() => _MunicipioInfoState();
@@ -17,6 +18,8 @@ class MunicipioInfo extends StatefulWidget {
 final municipioRefencia =
     FirebaseDatabase.instance.reference().child('municipios');
 final Refencia = FirebaseDatabase.instance.reference().child('aspectos');
+final zonareferencia = FirebaseDatabase.instance.reference().child('zonas');
+
 
 class _MunicipioInfoState extends State<MunicipioInfo> {
   List<Municipio> items;
@@ -29,6 +32,7 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
 
   @override
   Widget build(BuildContext context) {
+    var ref = zonareferencia.orderByChild('clave').equalTo(widget.municipio.clave);
     print(widget.municipio.clave);
     return Scaffold(
       appBar: AppBar(
@@ -96,10 +100,20 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
                     style: TextStyle(fontSize: 18.0),),
                   Padding(padding: EdgeInsets.only(top: 8.0),),
                   Divider(),
+                  new Text('Zonas de riesgo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: Colors.green),),
+                  Divider(),
+                  /*
+                  new Text("Desastre : ${widget.zona.desastre}", style: TextStyle(fontSize: 18.0),),
+                  Padding(padding: EdgeInsets.only(top: 8.0),),
+                  Divider(),
+
+                   */
                 ],
               ),
             ),
+
           ),
+
         ),
       ),
     );

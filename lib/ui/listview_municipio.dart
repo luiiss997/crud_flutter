@@ -5,6 +5,7 @@ import 'package:crud_flutter/ui/municipio_screen.dart';
 import 'package:crud_flutter/ui/municipios_info.dart';
 import 'package:crud_flutter/model/municipio.dart';
 import 'package:crud_flutter/model/aspectos.dart';
+import 'package:crud_flutter/model/zona.dart';
 
 class ListViewMunicipios extends StatefulWidget{
   @override
@@ -13,6 +14,7 @@ class ListViewMunicipios extends StatefulWidget{
 
 final municipiosReference = FirebaseDatabase.instance.reference().child('municipios');
 final aspectoReference = FirebaseDatabase.instance.reference().child('aspectos');
+final zonaReference= FirebaseDatabase.instance.reference().child('zonas');
 
 class _ListViewMunicipiosState extends State<ListViewMunicipios>{
   List<Municipio> items;
@@ -88,7 +90,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
                               )
                             ],
                           ),
-                          onTap: () => _navegarAlProducto(context, items[position], aspects[position]))),
+                          onTap: () => _navegarAlProducto(context, items[position], aspects[position],null))),
                       IconButton(
                           icon: Icon(Icons.delete, color: Colors.redAccent),
                           onPressed: () => _eliminarMunicipio(context, items[position], aspects[position], position)),
@@ -168,10 +170,10 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
     );
   }
 
-  void _navegarAlProducto(BuildContext context, Municipio municipio, Aspecto aspecto) async {
+  void _navegarAlProducto(BuildContext context, Municipio municipio, Aspecto aspecto, Zona zona) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio, aspecto)),
+      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio, aspecto, zona)),
     );
   }
 
