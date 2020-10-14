@@ -15,6 +15,7 @@ class MunicipioScreen extends StatefulWidget {
 
 final municipiosReference =
     FirebaseDatabase.instance.reference().child('municipios');
+final aspectosReference = FirebaseDatabase.instance.reference().child('aspectos');
 
 class _MunicipioScreenState extends State<MunicipioScreen> {
   List<Municipio> items;
@@ -274,12 +275,12 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                       String clima = _clima.text;
                       String loca = _localizacion.text;
 
-                      /*
+
                       String ele=_elevado.text;
                       String rio=_rio.text;
                       String cuerp=_cuerpoagua.text;
                       String ext=_extenso.text;
-                      String ind=_industrial.text;**/
+                      String ind=_industrial.text;
 
                       if (widget.municipio.id != null) {
                         municipiosReference.child(widget.municipio.id).set({
@@ -292,7 +293,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                           'clima': clima,
                           'localizacion': loca,
                         }).then((_) {
-                          Navigator.pop(context);
+
                         });
                       } else {
                         municipiosReference.push().set({
@@ -305,9 +306,34 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                           'clima': clima,
                           'localizacion': loca,
                         }).then((_) {
+
+                        });
+                      }
+
+                      if (widget.aspecto.id != null) {
+                        aspectosReference.child(widget.aspecto.id).set({
+                          'elevado': ele,
+                          'rio': rio,
+                          'cuerpoagua': cuerp,
+                          'poblacion': "Asdas",
+                          'extenso': ext,
+                          'industrializado': ind,
+                        }).then((_) {
+                          Navigator.pop(context);
+                        });
+                      } else {
+                        aspectosReference.push().set({
+                          'elevado': ele,
+                          'rio': rio,
+                          'cuerpoagua': cuerp,
+                          'poblacion': "Asdas",
+                          'extenso': ext,
+                          'industrializado': ind,
+                        }).then((_) {
                           Navigator.pop(context);
                         });
                       }
+
                     },
                     child: (widget.municipio.id != null)
                         ? Text('Actualizar')
