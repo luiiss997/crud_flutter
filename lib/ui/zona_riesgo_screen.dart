@@ -23,7 +23,7 @@ class _ZonaScreenState extends State<ZonaScreen> {
     // TODO: implement initState
     super.initState();
     _claveGE = new TextEditingController(text: widget.zona.clave);
-    _desastreNa = new TextEditingController(text: widget.zona.desastre);
+    _desastreNa = new TextEditingController(text: widget.zona.nombre);
   }
 
   @override

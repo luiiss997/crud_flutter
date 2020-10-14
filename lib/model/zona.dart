@@ -4,15 +4,15 @@ import 'package:firebase_database/firebase_database.dart';
 class Zona{
   String _id;
   String _clave;
-  String _desastre;
+  String _nombre;
 
-  Zona(this._id, this._clave, this._desastre);
+  Zona(this._id, this._clave, this._nombre);
   Zona.map(dynamic obj){
     this._clave = obj['clave'];
-    this._desastre = obj['desastre'];
+    this._nombre = obj['nombre'];
   }
 
-  String get desastre => _desastre;
+  String get nombre => _nombre;
 
   String get clave => _clave;
 
@@ -21,6 +21,6 @@ class Zona{
   Zona.fromSnapShop(DataSnapshot snapshot){
     _id = snapshot.key;
     _clave = snapshot.value['clave'];
-    _desastre = snapshot.value['desastre'];
+    _nombre = snapshot.value['nombre'];
   }
 }
