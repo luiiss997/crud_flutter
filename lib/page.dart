@@ -65,32 +65,35 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
                   children: <Widget>[
                     Divider(height: 7.0,),
                     Row(children: <Widget>[
-                      Expanded(child: ListTile(title: Text('${items[position].nombre}',
-                        style: TextStyle(color: Colors.blueAccent, fontSize: 21.0),
-                      ),
-                          subtitle: Text('${items[position].clave}',
+                        Expanded(
+                            child: ListTile(
+                          title: Text(
+                            '${items[position].nombre}',
                             style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontSize: 21.0
-                            ),
+                                color: Colors.blueAccent, fontSize: 21.0),
+                          ),
+                          subtitle: Text(
+                            '${items[position].clave}',
+                            style: TextStyle(
+                                color: Colors.blueAccent, fontSize: 21.0),
                           ),
                           leading: Column(
                             children: <Widget>[
                               CircleAvatar(
                                 backgroundColor: Colors.amberAccent,
                                 radius: 17.0,
-                                child: Text('${items[position].significado}',
+                                child: Text(
+                                  '${items[position].significado}',
                                   style: TextStyle(
-                                      color: Colors.blueAccent,
-                                      fontSize: 21.0
-                                  ),
+                                      color: Colors.blueAccent, fontSize: 21.0),
                                 ),
                               )
                             ],
                           ),
-                          onTap: () => _navegarAlProducto(context, items[position], aspects[position]),
-                      )),
-                    ],
+                          onTap: () => _navegarAlProducto(
+                              context, items[position], aspects[position]),
+                        )),
+                      ],
                     ),
                   ],
                 );
