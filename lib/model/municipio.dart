@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:crud_flutter/model/aspectos.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class Municipio{
@@ -11,6 +12,7 @@ class Municipio{
   String _altitud;
   String _clima;
   String _localizacion;
+  Aspecto _aspecto;
 
   Municipio(
       this._id,
@@ -21,7 +23,8 @@ class Municipio{
       this._superficie,
       this._altitud,
       this._clima,
-      this._localizacion);
+      this._localizacion,
+      this._aspecto);
 
   Municipio.map(dynamic obj){
     this._clave = obj['clave'];
@@ -32,6 +35,7 @@ class Municipio{
     this._altitud = obj['altitud'];
     this._clima = obj['clima'];
     this._localizacion = obj['localizacion'];
+    this._aspecto = obj['aspecto'];
   }
 
 

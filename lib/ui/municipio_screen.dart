@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:crud_flutter/model/municipio.dart';
+import 'package:crud_flutter/model/aspectos.dart';
 
 class MunicipioScreen extends StatefulWidget {
   final Municipio municipio;
-
   MunicipioScreen(this.municipio);
 
   @override
@@ -13,6 +13,7 @@ class MunicipioScreen extends StatefulWidget {
 
 final municipiosReference =
     FirebaseDatabase.instance.reference().child('municipios');
+
 
 class _MunicipioScreenState extends State<MunicipioScreen> {
   List<Municipio> items;
@@ -24,6 +25,12 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
   TextEditingController _altitud;
   TextEditingController _clima;
   TextEditingController _localizacion;
+  TextEditingController _elevado;
+  TextEditingController _rio;
+  TextEditingController _cuerpoagua;
+  TextEditingController _poblacion;
+  TextEditingController _extenso;
+  TextEditingController _industrial;
 
   String poblacion;
   int _value=1;
@@ -47,6 +54,11 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
     _altitud = new TextEditingController(text: widget.municipio.altitud);
     _clima = new TextEditingController(text: widget.municipio.clima);
     _localizacion = new TextEditingController(text: widget.municipio.localizacion);
+    _elevado = new TextEditingController(text: widget.aspecto.elevado);
+    _cuerpoagua = new TextEditingController(text: widget.aspecto.cuerpoagua);
+    _poblacion = new TextEditingController(text: widget.aspecto.poblacion);
+    _extenso = new TextEditingController(text: widget.aspecto.extenso);
+    _industrial = new TextEditingController(text: widget.aspecto.industrializado);
   }
 
   @override
@@ -140,9 +152,9 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                 Padding(
                   padding: EdgeInsets.only(top: 8.0),
                 ),
-                Divider(),
+                Divider(),//AQUI VA EL LABEL
                 TextField(
-                  controller: _altitud,//OBJ ASPECTO
+                  controller: _elevado,//OBJ ASPECTO
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.text,
                   style: TextStyle(fontSize: 17.0, color: Colors.green),
@@ -154,7 +166,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                 ),
                 Divider(),
                 TextField(
-                  controller: _altitud,//OBJ ASPECTO
+                  controller: _rio,//OBJ ASPECTO
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.text,
                   style: TextStyle(fontSize: 17.0, color: Colors.green),
@@ -166,7 +178,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                 ),
                 Divider(),
                 TextField(
-                  controller: _altitud,//OBJ ASPECTO
+                  controller: _cuerpoagua,//OBJ ASPECTO
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.text,
                   style: TextStyle(fontSize: 17.0, color: Colors.green),
@@ -178,37 +190,48 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                 ),
                 Divider(),
                 DropdownButton(
-                    value: _value,//OBJ ASPECTO
+                    value: _poblacion,//OBJ ASPECTO
                     items: [
                       DropdownMenuItem(
-                        child: Text("First Item"),
+                        child: Text("Menor a 50,000"),
                         value: 1,
                       ),
                       DropdownMenuItem(
-                        child: Text("Second Item"),
+                        child: Text("50,000 - 500,000"),
                         value: 2,
                       ),
                       DropdownMenuItem(
-                          child: Text("Third Item"),
+                          child: Text("50,000 - 1,000,000"),
                           value: 3
                       ),
                       DropdownMenuItem(
-                          child: Text("Fourth Item"),
+                          child: Text("Mayor a 1,000,000"),
                           value: 4
                       )
                     ],
                     onChanged: (value) {
                       setState(() {
-                        _value = value;
+                        _poblacion = value;
                       });
                     }),
                 TextField(
-                  controller: _clima,
+                  controller: _extenso,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.text,
                   style: TextStyle(fontSize: 17.0, color: Colors.green),
                   decoration: InputDecoration(
-                      icon: Icon(Icons.email), labelText: 'Clima'),
+                      icon: Icon(Icons.email), labelText: 'Extención'),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                ),
+                TextField(
+                  controller: _industrial,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 17.0, color: Colors.green),
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.email), labelText: 'Industrializado'),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 8.0),
@@ -236,6 +259,12 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                       String alt = _altitud.text;
                       String clima = _clima.text;
                       String loca = _localizacion.text;
+                      String ele=_elevado.text;
+                      String rio=_rio.text;
+                      String cuerp=_cuerpoagua.text;
+                      String pob=_poblacion.text;
+                      String ext=_extenso.text;
+                      String ind=_industrial.text;
 
                       if (widget.municipio.id != null) {
                         municipiosReference.child(widget.municipio.id).set({
@@ -248,7 +277,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                           'clima': clima,
                           'localizacion': loca,
                         }).then((_) {
-                          Navigator.pop(context);
+                          //Navigator.pop(context);
                         });
                       } else {
                         municipiosReference.push().set({
@@ -260,6 +289,31 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                           'altitud': alt,
                           'clima': clima,
                           'localizacion': loca,
+                        }).then((_) {
+                          //Navigator.pop(context);
+                        });
+                      }
+                      if(widget.aspecto.id != null){
+                        municipiosReference.child(widget.municipio.id)
+                            .child(widget.aspecto.id).set({
+                          'elevado': ele,
+                          'rio': rio,
+                          'cuerpoagua': cuerp,
+                          'poblacion': pob,
+                          'extenso': ext,
+                          'industrializado': ind,
+                        }).then((_) {
+                          Navigator.pop(context);
+                        });
+                      }else{
+                        municipiosReference.child(widget.municipio.id)
+                            .child(widget.aspecto.id).push().set({
+                          'elevado': ele,
+                          'rio': rio,
+                          'cuerpoagua': cuerp,
+                          'poblacion': pob,
+                          'extenso': ext,
+                          'industrializado': ind,
                         }).then((_) {
                           Navigator.pop(context);
                         });

@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:crud_flutter/ui/municipio_screen.dart';
 import 'package:crud_flutter/ui/municipios_info.dart';
 import 'package:crud_flutter/model/municipio.dart';
+import 'package:crud_flutter/model/aspectos.dart';
 
 class ListViewMunicipios extends StatefulWidget{
   @override
@@ -140,7 +141,6 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
       context,
       MaterialPageRoute(
           builder: (context) =>
-              MunicipioScreen(Municipio(null, '', '', '', '', '', '', '', ''))),
-    );
+              MunicipioScreen(Municipio(null, '', '', '', '', '', '', '', ''))));
   }
 }
