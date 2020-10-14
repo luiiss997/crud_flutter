@@ -34,15 +34,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
   TextEditingController _extenso;
   TextEditingController _industrial;
 
-  String _poblacion=" ";
   int _value=1;
-  List<String> lista = [
-    "Menor a 15,000",
-    "15,000 - 50,000",
-    "50,000 - 250,000",
-    "250,000 - 500,000",
-    "500,000 - 1,000,000",
-    "Mayor a 10K2"];
 
   @override
   void initState() {
@@ -57,6 +49,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
     _clima = new TextEditingController(text: widget.municipio.clima);
     _localizacion = new TextEditingController(text: widget.municipio.localizacion);
     _elevado = new TextEditingController(text: widget.aspecto.elevado);
+    _rio = new TextEditingController(text: widget.aspecto.rio);
     _cuerpoagua = new TextEditingController(text: widget.aspecto.cuerpoagua);
     //_poblacion = new TextEditingController(text: widget.aspecto.poblacion);
     _extenso = new TextEditingController(text: widget.aspecto.extenso);
@@ -251,7 +244,6 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                   padding: EdgeInsets.only(top: 8.0),
                 ),
                 Divider(),
-                Divider(),
                 TextField(
                   controller: _localizacion,
                   textInputAction: TextInputAction.next,
@@ -273,8 +265,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                       String superf = _superficie.text;
                       String alt = _altitud.text;
                       String clima = _clima.text;
-                      String loca = _localizacion.text;
-
+                      // String loca = _localizacion.text;
 
                       String ele=_elevado.text;
                       String rio=_rio.text;
@@ -291,9 +282,8 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                           'superficie': superf,
                           'altitud': alt,
                           'clima': clima,
-                          'localizacion': loca,
+                          'localizacion': "your anus",
                         }).then((_) {
-
                         });
                       } else {
                         municipiosReference.push().set({
@@ -304,18 +294,17 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                           'superficie': superf,
                           'altitud': alt,
                           'clima': clima,
-                          'localizacion': loca,
+                          'localizacion': "your anus",
                         }).then((_) {
-
                         });
                       }
-
                       if (widget.aspecto.id != null) {
                         aspectosReference.child(widget.aspecto.id).set({
+                          'clave': clv,
                           'elevado': ele,
                           'rio': rio,
                           'cuerpoagua': cuerp,
-                          'poblacion': "Asdas",
+                          'poblacion': "nullalvprro",
                           'extenso': ext,
                           'industrializado': ind,
                         }).then((_) {
@@ -323,17 +312,17 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                         });
                       } else {
                         aspectosReference.push().set({
+                          'clave': clv,
                           'elevado': ele,
                           'rio': rio,
                           'cuerpoagua': cuerp,
-                          'poblacion': "Asdas",
+                          'poblacion': "nullalvprro",
                           'extenso': ext,
                           'industrializado': ind,
                         }).then((_) {
                           Navigator.pop(context);
                         });
                       }
-
                     },
                     child: (widget.municipio.id != null)
                         ? Text('Actualizar')

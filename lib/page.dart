@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
 import 'package:crud_flutter/ui/municipios_info.dart';
 import 'package:crud_flutter/model/municipio.dart';
+import 'package:crud_flutter/model/aspectos.dart';
 
 //ne memes flutter 7n7
 
@@ -12,9 +13,11 @@ class ListViewMunicipios2 extends StatefulWidget{
 }
 
 final municipiosReference = FirebaseDatabase.instance.reference().child('municipios');
+final aspectoReference = FirebaseDatabase.instance.reference().child('aspectos');
 
 class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
   List<Municipio> items;
+  List<Aspecto> aspects;
   StreamSubscription<Event> _onMunicipioAddedSubscripcion;
   StreamSubscription<Event> _onMunicipioCambioSubscripcion;
 
@@ -78,7 +81,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
                               )
                             ],
                           ),
-                          onTap: () => _navegarAlProducto(context, items[position]),
+                          onTap: () => _navegarAlProducto(context, items[position], aspects[position]),
                       )),
                     ],
                     ),
@@ -104,10 +107,10 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
     });
   }
 
-  void _navegarAlProducto(BuildContext context, Municipio municipio) async {
+  void _navegarAlProducto(BuildContext context, Municipio municipio, Aspecto aspecto) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio)),
+      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio, aspecto)),
     );
   }
 

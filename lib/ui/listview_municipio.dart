@@ -12,20 +12,29 @@ class ListViewMunicipios extends StatefulWidget{
 }
 
 final municipiosReference = FirebaseDatabase.instance.reference().child('municipios');
+final aspectoReference = FirebaseDatabase.instance.reference().child('aspectos');
 
 class _ListViewMunicipiosState extends State<ListViewMunicipios>{
   List<Municipio> items;
+  List<Aspecto> aspects;
   StreamSubscription<Event> _onMunicipioAddedSubscripcion;
   StreamSubscription<Event> _onMunicipioCambioSubscripcion;
+  StreamSubscription<Event> _onAspectoAddedSubscripcion;
+  StreamSubscription<Event> _onAspectoCambioSubscripcion;
 
   @override
   void initState() {
     super.initState();
     items = new List();
+    aspects = new List();
     _onMunicipioAddedSubscripcion =
         municipiosReference.onChildAdded.listen(_onMunicipioAdded);
     _onMunicipioCambioSubscripcion =
         municipiosReference.onChildChanged.listen(_onMunicipioCambio);
+    _onAspectoAddedSubscripcion =
+        aspectoReference.onChildAdded.listen(_onAspectoAdded);
+    _onAspectoCambioSubscripcion =
+        aspectoReference.onChildChanged.listen(_onMunicipioCambio);
   }
 
   @override
@@ -33,6 +42,8 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
     super.dispose();
     _onMunicipioAddedSubscripcion.cancel();
     _onMunicipioCambioSubscripcion.cancel();
+    _onAspectoAddedSubscripcion.cancel();
+    _onAspectoCambioSubscripcion.cancel();
   }
 
   @override
@@ -77,14 +88,13 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
                               )
                             ],
                           ),
-                          onTap: () => _navegarAlProducto(context, items[position]))),
+                          onTap: () => _navegarAlProducto(context, items[position], aspects[position]))),
                       IconButton(
                           icon: Icon(Icons.delete, color: Colors.redAccent),
-                          onPressed: () => _eliminarMunicipio(context, items[position],position)),
+                          onPressed: () => _eliminarMunicipio(context, items[position], aspects[position], position)),
                       IconButton(
                           icon: Icon(Icons.edit, color: Colors.greenAccent),
-                          onPressed: () => _navegarAlaInformacionMunicipiol(context, items[position], items[position].aspecto)),
-
+                          onPressed: () => _navegarAlaInformacionMunicipiol(context, items[position], aspects[position])),
                     ],
                     ),
                   ],
@@ -106,18 +116,41 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
     });
   }
 
-  void _onMunicipioCambio(Event event){
-    var oldMunicipioValor=items.singleWhere((municipio) => municipio.id == event.snapshot.key);
+  void _onAspectoAdded(Event event){
     setState(() {
-      items[items.indexOf(oldMunicipioValor)] = new Municipio.fromSnapShop(event.snapshot);
+      aspects.add(new Aspecto.fromSnapShop(event.snapshot));
     });
   }
 
-  void _eliminarMunicipio(BuildContext context, Municipio municipio, int position)async {
+
+  void _onMunicipioCambio(Event event){
+    var oldMunicipioValor=items.singleWhere((municipio) => municipio.id == event.snapshot.key);
+    var oldAspect=aspects.singleWhere((aspecto) => aspecto.id == event.snapshot.key);
+    setState(() {
+      items[items.indexOf(oldMunicipioValor)] = new Municipio.fromSnapShop(event.snapshot);
+      aspects[aspects.indexOf(oldAspect)] = new Aspecto.fromSnapShop(event.snapshot);
+    });
+  }
+
+  void _onAspectoCambio(Event event){
+    var oldAspect=aspects.singleWhere((aspecto) => aspecto.id == event.snapshot.key);
+    setState(() {
+      aspects[aspects.indexOf(oldAspect)] = new Aspecto.fromSnapShop(event.snapshot);
+    });
+  }
+
+
+  void _eliminarMunicipio(BuildContext context, Municipio municipio, Aspecto aspecto, int position)async {
     await municipiosReference.child(municipio.id).remove().then((_) {
       setState(() {
         items.removeAt(position);
        // Navigator.of(context).pop();
+      });
+    });
+    await aspectoReference.child(aspecto.id).remove().then((_) {
+      setState(() {
+        aspects.removeAt(position);
+        // Navigator.of(context).pop();
       });
     });
   }
@@ -129,10 +162,10 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
     );
   }
 
-  void _navegarAlProducto(BuildContext context, Municipio municipio) async {
+  void _navegarAlProducto(BuildContext context, Municipio municipio, Aspecto aspecto) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio)),
+      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio, aspecto)),
     );
   }
 
@@ -141,6 +174,6 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
       context,
       MaterialPageRoute(
           builder: (context) =>
-              MunicipioScreen(Municipio(null, '', '', '', '', '', '', '', '', null), Aspecto(null, '','','','','',''))));
+              MunicipioScreen(Municipio(null, '', '', '', '', '', '', '', ''), Aspecto(null, '','','','','','',''))));
   }
 }

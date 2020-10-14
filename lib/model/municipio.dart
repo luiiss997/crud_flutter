@@ -12,7 +12,6 @@ class Municipio{
   String _altitud;
   String _clima;
   String _localizacion;
-  Aspecto _aspecto;
 
   Municipio(
       this._id,
@@ -23,8 +22,7 @@ class Municipio{
       this._superficie,
       this._altitud,
       this._clima,
-      this._localizacion,
-      this._aspecto);
+      this._localizacion);
 
   Municipio.map(dynamic obj){
     this._clave = obj['clave'];
@@ -35,9 +33,7 @@ class Municipio{
     this._altitud = obj['altitud'];
     this._clima = obj['clima'];
     this._localizacion = obj['localizacion'];
-    this._aspecto = obj['aspecto'];
   }
-
 
   String get id => _id;
   String get clave => _clave;
@@ -48,7 +44,7 @@ class Municipio{
   String get altitud => _altitud;
   String get clima => _clima;
   String get localizacion => _localizacion;
-  Aspecto get aspecto => _aspecto;
+
 
   Municipio.fromSnapShop(DataSnapshot snapshot) {
     _id = snapshot.key;
@@ -60,7 +56,6 @@ class Municipio{
     _altitud = snapshot.value['altitud'];
     _clima = snapshot.value['clima'];
     _localizacion = snapshot.value['localizacion'];
-    _aspecto = snapshot.value['aspecto'];
   }
 
 }
