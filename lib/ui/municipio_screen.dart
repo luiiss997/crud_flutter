@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:crud_flutter/model/municipio.dart';
 import 'package:crud_flutter/model/aspectos.dart';
 
+
 class MunicipioScreen extends StatefulWidget {
   final Municipio municipio;
   final Aspecto aspecto;
@@ -30,10 +31,10 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
   TextEditingController _elevado;
   TextEditingController _rio;
   TextEditingController _cuerpoagua;
-  //TextEditingController _poblacion;
   TextEditingController _extenso;
   TextEditingController _industrial;
 
+  String _poblazao;
   int _value=1;
 
   @override
@@ -51,9 +52,10 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
     _elevado = new TextEditingController(text: widget.aspecto.elevado);
     _rio = new TextEditingController(text: widget.aspecto.rio);
     _cuerpoagua = new TextEditingController(text: widget.aspecto.cuerpoagua);
-    //_poblacion = new TextEditingController(text: widget.aspecto.poblacion);
+    _poblazao = widget.aspecto.poblacion.toString();
     _extenso = new TextEditingController(text: widget.aspecto.extenso);
     _industrial = new TextEditingController(text: widget.aspecto.industrializado);
+    _value=int.parse(_poblazao);
   }
 
   @override
@@ -265,7 +267,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                       String superf = _superficie.text;
                       String alt = _altitud.text;
                       String clima = _clima.text;
-                      // String loca = _localizacion.text;
+                      String pobl = _value.toString();
 
                       String ele=_elevado.text;
                       String rio=_rio.text;
@@ -304,7 +306,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                           'elevado': ele,
                           'rio': rio,
                           'cuerpoagua': cuerp,
-                          'poblacion': "nullalvprro",
+                          'poblacion': pobl,
                           'extenso': ext,
                           'industrializado': ind,
                         }).then((_) {
@@ -316,7 +318,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                           'elevado': ele,
                           'rio': rio,
                           'cuerpoagua': cuerp,
-                          'poblacion': "nullalvprro",
+                          'poblacion': pobl,
                           'extenso': ext,
                           'industrializado': ind,
                         }).then((_) {
@@ -335,4 +337,5 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
       ),
     );
   }
+
 }

@@ -95,6 +95,9 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
                       IconButton(
                           icon: Icon(Icons.edit, color: Colors.greenAccent),
                           onPressed: () => _navegarAlaInformacionMunicipiol(context, items[position], aspects[position])),
+                      IconButton(
+                          icon: Icon(Icons.wallet_giftcard, color: Colors.redAccent),
+                          onPressed: () => _abirZonasRiesgo()),
                     ],
                     ),
                   ],
@@ -110,6 +113,11 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
       ),
     );
   }
+
+  void _abirZonasRiesgo(){
+
+  }
+
   void _onMunicipioAdded(Event event){
     setState(() {
       items.add(new Municipio.fromSnapShop(event.snapshot));
