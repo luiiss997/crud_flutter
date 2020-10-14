@@ -20,10 +20,34 @@ final Refencia = FirebaseDatabase.instance.reference().child('aspectos');
 
 class _MunicipioInfoState extends State<MunicipioInfo> {
   List<Municipio> items;
+  String _poblazao;
 
   @override
   void initState() {
     // TODO: implement initState
+    switch (widget.aspecto.poblacion) {
+      case "1":
+        {
+          _poblazao = "Menor a 50,000";
+        }
+        break;
+      case "2":
+        {
+          _poblazao = "50,000 - 500,000";
+        }
+        break;
+      case "3":
+        {
+          _poblazao = "50,000 - 1,000,000";
+        }
+        break;
+      case "4":
+        {
+          _poblazao = "Mayor a 1,000,000";
+        }
+        break;
+    }
+
     super.initState();
   }
 
@@ -87,8 +111,10 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
                     style: TextStyle(fontSize: 18.0),),
                   Padding(padding: EdgeInsets.only(top: 8.0),),
                   Divider(),
-                  new Text("Población : ${widget.aspecto.poblacion}",
-                    style: TextStyle(fontSize: 18.0),),
+                  new Text(
+                    "Población : ${_poblazao}",
+                    style: TextStyle(fontSize: 18.0),
+                  ),
                   Padding(padding: EdgeInsets.only(top: 8.0),),
                   Divider(),
                   new Text(
