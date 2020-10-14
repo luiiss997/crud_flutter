@@ -279,7 +279,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                         String alt = _altitud.text;
                         String clima = _clima.text;
                         String pobl = _value.toString();
-
+                        String local = _localizacion.text;
                         String ele = _elevado.text;
                         String rio = _rio.text;
                         String cuerp = _cuerpoagua.text;
@@ -295,7 +295,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                             'superficie': superf,
                             'altitud': alt,
                             'clima': clima,
-                            'localizacion': "your anus",
+                            'localizacion': local,
                           }).then((_) {});
                         } else {
                           municipiosReference.push().set({
@@ -306,7 +306,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                             'superficie': superf,
                             'altitud': alt,
                             'clima': clima,
-                            'localizacion': "your anus",
+                            'localizacion': local,
                           }).then((_) {});
                         }
                         if (widget.aspecto.id != null) {
