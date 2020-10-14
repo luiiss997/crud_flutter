@@ -128,12 +128,7 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
                   Divider(),
                   new Text('Zonas de riesgo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: Colors.green),),
                   Divider(),
-                  /*
-                  new Text("Desastre : ${widget.zona.desastre}", style: TextStyle(fontSize: 18.0),),
-                  Padding(padding: EdgeInsets.only(top: 8.0),),
-                  Divider(),
 
-                   */
                 ],
               ),
             ),
