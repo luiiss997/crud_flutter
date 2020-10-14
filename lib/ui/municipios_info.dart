@@ -8,8 +8,7 @@ import 'package:crud_flutter/model/zona.dart';
 class MunicipioInfo extends StatefulWidget {
   final Municipio municipio;
   final Aspecto aspecto;
-  final Zona zona;
-  MunicipioInfo(this.municipio, this.aspecto, this.zona);
+  MunicipioInfo(this.municipio, this.aspecto);
 
   @override
   _MunicipioInfoState createState() => _MunicipioInfoState();

@@ -134,7 +134,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
   void _navegarAlProducto(BuildContext context, Municipio municipio, Aspecto aspecto) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio, aspecto,null)),
+      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio, aspecto)),
     );
   }
 
