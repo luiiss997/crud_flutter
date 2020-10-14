@@ -29,11 +29,11 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
   TextEditingController _elevado;
   TextEditingController _rio;
   TextEditingController _cuerpoagua;
-  TextEditingController _poblacion;
+  //TextEditingController _poblacion;
   TextEditingController _extenso;
   TextEditingController _industrial;
 
-  String poblacion;
+  String _poblacion=" ";
   int _value=1;
   List<String> lista = [
     "Menor a 15,000",
@@ -57,7 +57,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
     _localizacion = new TextEditingController(text: widget.municipio.localizacion);
     _elevado = new TextEditingController(text: widget.aspecto.elevado);
     _cuerpoagua = new TextEditingController(text: widget.aspecto.cuerpoagua);
-    _poblacion = new TextEditingController(text: widget.aspecto.poblacion);
+    //_poblacion = new TextEditingController(text: widget.aspecto.poblacion);
     _extenso = new TextEditingController(text: widget.aspecto.extenso);
     _industrial = new TextEditingController(text: widget.aspecto.industrializado);
   }
@@ -191,7 +191,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                 ),
                 Divider(),
                 DropdownButton(
-                    value: _poblacion,//OBJ ASPECTO
+                    value: _value,//OBJ ASPECTO
                     items: [
                       DropdownMenuItem(
                         child: Text("Menor a 50,000"),
@@ -212,7 +212,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                     ],
                     onChanged: (value) {
                       setState(() {
-                        _poblacion = value;
+                        _value = value;
                       });
                     }),
                 TextField(
@@ -239,6 +239,19 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                 ),
                 Divider(),
                 TextField(
+                  controller: _clima,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 17.0, color: Colors.green),
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.email), labelText: 'Clima'),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                ),
+                Divider(),
+                Divider(),
+                TextField(
                   controller: _localizacion,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.text,
@@ -260,12 +273,13 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                       String alt = _altitud.text;
                       String clima = _clima.text;
                       String loca = _localizacion.text;
+
+                      /*
                       String ele=_elevado.text;
                       String rio=_rio.text;
                       String cuerp=_cuerpoagua.text;
-                      String pob=_poblacion.text;
                       String ext=_extenso.text;
-                      String ind=_industrial.text;
+                      String ind=_industrial.text;**/
 
                       if (widget.municipio.id != null) {
                         municipiosReference.child(widget.municipio.id).set({
@@ -278,7 +292,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                           'clima': clima,
                           'localizacion': loca,
                         }).then((_) {
-                          //Navigator.pop(context);
+                          Navigator.pop(context);
                         });
                       } else {
                         municipiosReference.push().set({
@@ -290,31 +304,6 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                           'altitud': alt,
                           'clima': clima,
                           'localizacion': loca,
-                        }).then((_) {
-                          //Navigator.pop(context);
-                        });
-                      }
-                      if(widget.aspecto.id != null){
-                        municipiosReference.child(widget.municipio.id)
-                            .child(widget.aspecto.id).set({
-                          'elevado': ele,
-                          'rio': rio,
-                          'cuerpoagua': cuerp,
-                          'poblacion': pob,
-                          'extenso': ext,
-                          'industrializado': ind,
-                        }).then((_) {
-                          Navigator.pop(context);
-                        });
-                      }else{
-                        municipiosReference.child(widget.municipio.id)
-                            .child(widget.aspecto.id).push().set({
-                          'elevado': ele,
-                          'rio': rio,
-                          'cuerpoagua': cuerp,
-                          'poblacion': pob,
-                          'extenso': ext,
-                          'industrializado': ind,
                         }).then((_) {
                           Navigator.pop(context);
                         });
