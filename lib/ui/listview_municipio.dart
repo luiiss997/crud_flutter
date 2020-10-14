@@ -83,7 +83,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
                           onPressed: () => _eliminarMunicipio(context, items[position],position)),
                       IconButton(
                           icon: Icon(Icons.edit, color: Colors.greenAccent),
-                          onPressed: () => _navegarAlaInformacionMunicipiol(context, items[position])),
+                          onPressed: () => _navegarAlaInformacionMunicipiol(context, items[position], items[position].aspecto)),
 
                     ],
                     ),
@@ -122,10 +122,10 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
     });
   }
 
-  void _navegarAlaInformacionMunicipiol(BuildContext context, Municipio municipio) async {
+  void _navegarAlaInformacionMunicipiol(BuildContext context, Municipio municipio, Aspecto aspecto) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MunicipioScreen(municipio)),
+      MaterialPageRoute(builder: (context) => MunicipioScreen(municipio, aspecto)),
     );
   }
 
@@ -141,6 +141,6 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
       context,
       MaterialPageRoute(
           builder: (context) =>
-              MunicipioScreen(Municipio(null, '', '', '', '', '', '', '', ''))));
+              MunicipioScreen(Municipio(null, '', '', '', '', '', '', '', '', null), Aspecto(null, '','','','','',''))));
   }
 }

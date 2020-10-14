@@ -48,6 +48,7 @@ class Municipio{
   String get altitud => _altitud;
   String get clima => _clima;
   String get localizacion => _localizacion;
+  Aspecto get aspecto => _aspecto;
 
   Municipio.fromSnapShop(DataSnapshot snapshot) {
     _id = snapshot.key;
@@ -59,8 +60,7 @@ class Municipio{
     _altitud = snapshot.value['altitud'];
     _clima = snapshot.value['clima'];
     _localizacion = snapshot.value['localizacion'];
+    _aspecto = snapshot.value['aspecto'];
   }
-
-
 
 }

@@ -5,7 +5,9 @@ import 'package:crud_flutter/model/aspectos.dart';
 
 class MunicipioScreen extends StatefulWidget {
   final Municipio municipio;
-  MunicipioScreen(this.municipio);
+  final Aspecto aspecto;
+
+  MunicipioScreen(this.municipio, this.aspecto);
 
   @override
   _MunicipioScreenState createState() => _MunicipioScreenState();
@@ -13,7 +15,6 @@ class MunicipioScreen extends StatefulWidget {
 
 final municipiosReference =
     FirebaseDatabase.instance.reference().child('municipios');
-
 
 class _MunicipioScreenState extends State<MunicipioScreen> {
   List<Municipio> items;
