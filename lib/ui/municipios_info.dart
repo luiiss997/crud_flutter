@@ -144,7 +144,7 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
                   Padding(padding: EdgeInsets.only(top: 8.0),),
                   Divider(),
                   new Text(
-                    "Industrializado? : ${widget.aspecto.industrializado}",
+                    "Industrializado : ${widget.aspecto.industrializado}",
                     style: TextStyle(fontSize: 18.0),),
                   Padding(padding: EdgeInsets.only(top: 8.0),),
                   Divider(),
