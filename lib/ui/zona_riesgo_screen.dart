@@ -78,12 +78,16 @@ class _ZonaScreenState extends State<ZonaScreen> {
                           zonasReference.child(widget.zona.id).set({
                             'clave': clv,
                             'nombre': desas,
-                          }).then((_) {});
+                          }).then((_) {
+                            Navigator.pop(context);
+                          });
                         } else {
                           zonasReference.push().set({
                             'clave': clv,
                             'nombre': desas,
-                          }).then((_) {});
+                          }).then((_) {
+                            Navigator.pop(context);
+                          });
                         }
                       },
                       child: (widget.zona.id != null)
