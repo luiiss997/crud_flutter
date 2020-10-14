@@ -2,19 +2,17 @@ import 'package:crud_flutter/model/aspectos.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:crud_flutter/model/municipio.dart';
-import 'package:crud_flutter/model/aspectos.dart';
 
 
 class MunicipioInfo extends StatefulWidget {
   final Municipio municipio;
   final Aspecto aspecto;
-  MunicipioInfo(this.municipio, this.aspecto);
+  MunicipioInfo(this.municipio,this.aspecto);
   @override
   _MunicipioInfoState createState() => _MunicipioInfoState();
 }
 
 final municipioRefencia = FirebaseDatabase.instance.reference().child('municipios');
-final Refencia = FirebaseDatabase.instance.reference().child('aspectos');
 
 class _MunicipioInfoState extends State<MunicipioInfo> {
 
@@ -35,7 +33,7 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
         backgroundColor: Colors.green,
       ),
       body: Container(
-        height: 700.0,
+        height: 500.0,
         padding: const EdgeInsets.all(20.0),
         child: Card(
           child: Center(
@@ -64,21 +62,6 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
                 Padding(padding: EdgeInsets.only(top: 8.0),),
                 Divider(),
                 new Text("Localizacion : ${widget.municipio.localizacion}", style: TextStyle(fontSize: 18.0),),
-                Padding(padding: EdgeInsets.only(top: 8.0),),
-                Divider(),
-                new Text("Elevación : ${widget.aspecto.elevado}", style: TextStyle(fontSize: 18.0),),
-                Padding(padding: EdgeInsets.only(top: 8.0),),
-                Divider(),
-                new Text("Rio : ${widget.aspecto.rio}", style: TextStyle(fontSize: 18.0),),
-                Padding(padding: EdgeInsets.only(top: 8.0),),
-                Divider(),
-                new Text("Cuerpo de Agua : ${widget.aspecto.cuerpoagua}", style: TextStyle(fontSize: 18.0),),
-                Padding(padding: EdgeInsets.only(top: 8.0),),
-                Divider(),
-                new Text("Población : ${widget.aspecto.poblacion}", style: TextStyle(fontSize: 18.0),),
-                Padding(padding: EdgeInsets.only(top: 8.0),),
-                Divider(),
-                new Text("Industrializado? : ${widget.aspecto.industrializado}", style: TextStyle(fontSize: 18.0),),
                 Padding(padding: EdgeInsets.only(top: 8.0),),
                 Divider(),
               ],
