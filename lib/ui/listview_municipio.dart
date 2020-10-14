@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
 import 'package:crud_flutter/ui/municipio_screen.dart';
 import 'package:crud_flutter/ui/municipios_info.dart';
+import 'package:crud_flutter/ui/zona_riesgo_screen.dart';
 import 'package:crud_flutter/model/municipio.dart';
 import 'package:crud_flutter/model/aspectos.dart';
 import 'package:crud_flutter/model/zona.dart';
@@ -14,7 +15,6 @@ class ListViewMunicipios extends StatefulWidget{
 
 final municipiosReference = FirebaseDatabase.instance.reference().child('municipios');
 final aspectoReference = FirebaseDatabase.instance.reference().child('aspectos');
-final zonaReference= FirebaseDatabase.instance.reference().child('zonas');
 
 class _ListViewMunicipiosState extends State<ListViewMunicipios>{
   List<Municipio> items;
@@ -88,19 +88,23 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
                                   ),
                                 ),
                               )
-                            ],
-                          ),
-                          onTap: () => _navegarAlProducto(context, items[position], aspects[position],null))),
-                      IconButton(
-                          icon: Icon(Icons.delete, color: Colors.redAccent),
-                          onPressed: () => _eliminarMunicipio(context, items[position], aspects[position], position)),
-                      IconButton(
-                          icon: Icon(Icons.edit, color: Colors.greenAccent),
-                          onPressed: () => _navegarAlaInformacionMunicipiol(context, items[position], aspects[position])),
-                      IconButton(
-                          icon: Icon(Icons.wallet_giftcard, color: Colors.redAccent),
-                          onPressed: () => _abirZonasRiesgo()),
-                    ],
+                                  ],
+                                ),
+                                onTap: () => _navegarAlProducto(context,
+                                    items[position], aspects[position]))),
+                        IconButton(
+                            icon: Icon(Icons.delete, color: Colors.redAccent),
+                            onPressed: () => _eliminarMunicipio(context,
+                                items[position], aspects[position], position)),
+                        IconButton(
+                            icon: Icon(Icons.edit, color: Colors.greenAccent),
+                            onPressed: () => _navegarAlaInformacionMunicipiol(
+                                context, items[position], aspects[position])),
+                        IconButton(
+                            icon: Icon(Icons.warning, color: Colors.redAccent),
+                            onPressed: () => _abirZonasRiesgo(
+                                context, items[position].clave)),
+                      ],
                     ),
                   ],
                 );
@@ -114,10 +118,6 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
         ),
       ),
     );
-  }
-
-  void _abirZonasRiesgo(){
-
   }
 
   void _onMunicipioAdded(Event event){
@@ -170,18 +170,40 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
     );
   }
 
-  void _navegarAlProducto(BuildContext context, Municipio municipio, Aspecto aspecto, Zona zona) async {
+  void _navegarAlProducto(BuildContext context, Municipio municipio, Aspecto aspecto) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio, aspecto, zona)),
+      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio, aspecto)),
     );
   }
 
   void _createNewMunicipio(BuildContext context) async {
     await Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) =>
-              MunicipioScreen(Municipio(null, '', '', '', '', '', '', '', ''), Aspecto(null, '','','','','','',''))));
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                MunicipioScreen(Municipio(
+                    null,
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    ''), Aspecto(
+                    null,
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    ''))));
+  }
+
+  void _abirZonasRiesgo(BuildContext context, String clave) async {
+    await Navigator.push(context, MaterialPageRoute(
+        builder: (context) => ZonaScreen(Zona(null, clave, ""))));
   }
 }
