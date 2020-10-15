@@ -209,7 +209,7 @@ class _MunicipioScreenState extends State<MunicipioScreen> {
                           value: 2,
                         ),
                         DropdownMenuItem(
-                            child: Text("50,000 - 1,000,000"),
+                            child: Text("500,000 - 1,000,000"),
                             value: 3
                         ),
                         DropdownMenuItem(
