@@ -15,20 +15,25 @@ class ListViewMunicipios extends StatefulWidget{
 
 final municipiosReference = FirebaseDatabase.instance.reference().child('municipios');
 final aspectoReference = FirebaseDatabase.instance.reference().child('aspectos');
+final zonaReference =FirebaseDatabase.instance.reference().child('zonas');
 
 class _ListViewMunicipiosState extends State<ListViewMunicipios>{
   List<Municipio> items;
   List<Aspecto> aspects;
+  List<Zona> lists;
+  var ref;
   StreamSubscription<Event> _onMunicipioAddedSubscripcion;
   StreamSubscription<Event> _onMunicipioCambioSubscripcion;
   StreamSubscription<Event> _onAspectoAddedSubscripcion;
   StreamSubscription<Event> _onAspectoCambioSubscripcion;
+  StreamSubscription<Event> _onZonaAddedSubscripcion;
 
   @override
   void initState() {
     super.initState();
     items = new List();
     aspects = new List();
+    lists = new List();
     _onMunicipioAddedSubscripcion =
         municipiosReference.onChildAdded.listen(_onMunicipioAdded);
     _onMunicipioCambioSubscripcion =
@@ -37,6 +42,8 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
         aspectoReference.onChildAdded.listen(_onAspectoAdded);
     _onAspectoCambioSubscripcion =
         aspectoReference.onChildChanged.listen(_onAspectoCambio);
+    _onZonaAddedSubscripcion =
+        zonaReference.onChildAdded.listen(_onZonaAdded);
   }
 
   @override
@@ -46,6 +53,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
     _onMunicipioCambioSubscripcion.cancel();
     _onAspectoAddedSubscripcion.cancel();
     _onAspectoCambioSubscripcion.cancel();
+    _onZonaAddedSubscripcion.cancel();
   }
 
   @override
@@ -149,6 +157,9 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
 
 
   void _eliminarMunicipio(BuildContext context, Municipio municipio, Aspecto aspecto, int position)async {
+
+
+
     await municipiosReference.child(municipio.id).remove().then((_) {
       setState(() {
         items.removeAt(position);
@@ -161,8 +172,26 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios>{
         // Navigator.of(context).pop();
       });
     });
-  }
+    int op=0;
+    if(lists!=null){
+      print('entro');
+      do{
 
+        if(lists[op].clave==municipio.clave){
+          await zonaReference.child(lists[op].id).remove();
+          lists.removeAt(op);
+          op--;
+        }
+        op++;
+      }while(op<lists.length);
+    }
+  }
+  void _onZonaAdded(Event event) {
+    setState(() {
+      lists.add(new Zona.fromSnapShop(event.snapshot));
+      print(lists);
+    });
+  }
   void _navegarAlaInformacionMunicipiol(BuildContext context, Municipio municipio, Aspecto aspecto) async {
     await Navigator.push(
       context,

@@ -1,44 +1,31 @@
-//import 'dart:html';
-
 import 'dart:async';
-//import 'dart:html';
-
 import 'package:crud_flutter/model/aspectos.dart';
-import 'package:crud_flutter/ui/zona_riesgo_screen.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:crud_flutter/model/municipio.dart';
-import 'package:crud_flutter/model/aspectos.dart';
 import 'package:crud_flutter/model/zona.dart';
 
-
-class MunicipioInfo extends StatefulWidget {
+class MunicipioInfoC extends StatefulWidget {
   final Municipio municipio;
   final Aspecto aspecto;
-  MunicipioInfo(this.municipio, this.aspecto);
-
+  MunicipioInfoC(this.municipio, this.aspecto);
   @override
-  _MunicipioInfoState createState() => _MunicipioInfoState();
+  _MunicipioInfoCState createState() => _MunicipioInfoCState();
 }
-
 final municipioRefencia =
-    FirebaseDatabase.instance.reference().child('municipios');
+FirebaseDatabase.instance.reference().child('municipios');
 final Refencia = FirebaseDatabase.instance.reference().child('aspectos');
 final zonareferencia = FirebaseDatabase.instance.reference().child('zonas');
 
-
-
-class _MunicipioInfoState extends State<MunicipioInfo> {
+class _MunicipioInfoCState extends State<MunicipioInfoC> {
   List<Municipio> items;
   List<Zona> lists;
   String _poblazao;
   StreamSubscription<Event> _onZonaAddedSubscripcion;
-
-  @override
+@override
   void initState() {
     // TODO: implement initState
-
+    super.initState();
     switch (widget.aspecto.poblacion) {
       case "1":
         {
@@ -67,25 +54,17 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
     var ref = zonareferencia.orderByChild("clave").equalTo(
         widget.municipio.clave);
     print(widget.municipio.clave);
-    final dat = FirebaseDatabase.instance.reference().child('zonas')
-        .orderByChild("clave")
-        .equalTo(widget.municipio.clave);
 
     _onZonaAddedSubscripcion = ref.onChildAdded.listen(_onZonaAdded);
   }
-
-  Zona zona1;
-
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     _onZonaAddedSubscripcion.cancel();
   }
-
   @override
   Widget build(BuildContext context) {
-    print(widget.municipio.clave);
     return Scaffold(
       appBar: AppBar(
         title: Text('Municipio Informacion'),
@@ -168,63 +147,14 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
                             children: <Widget>[
                               Text( lists[index].nombre,
                                 style: TextStyle(fontSize: 18.0,),),
-                              IconButton(
-                                  icon: Icon(
-                                      Icons.delete, color: Colors.redAccent),
-                                  onPressed: () => _eliminarZona(context,
-                                  lists[index], index)),
-                              IconButton(
-                                  icon: Icon(
-                                      Icons.edit, color: Colors.greenAccent),
-                                  onPressed: () => _editZona(context,
-                                      lists[index])),
+
                             ],
                           ),
                         );
                       }
                   ),
                   Divider(),
-                  /*
-                  FutureBuilder(
-                    future: zonareferencia.orderByChild("clave").equalTo(widget.municipio.clave).once(),
-                    builder: (context, AsyncSnapshot<DataSnapshot> snapshot){
-                      if(snapshot.hasData){
-                        //lists.clear();
-                        Map<dynamic, dynamic> values = snapshot.data.value;
-                        values.forEach((key, values) {
-                          lists.add(values);
-                        });
-                        return new ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: lists.length,
-                            itemBuilder: (BuildContext context, int index){
-                              return Card(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text("Desastre: "+lists[index].desastre),
-                                  ],
-                                ),
-                              );
-                            });
-                      }
-                      return CircularProgressIndicator();
-                    },
-                  )
 
-                  new FirebaseAnimatedList(query: zonareferencia.orderByChild('clave')
-                      .equalTo(widget.municipio.clave),
-                      padding: new EdgeInsets.all(8.0),
-                    reverse: false,
-                    itemBuilder: (_, DataSnapshot snapshot,
-                        Animation<double> animation, int x) {
-                      return new ListTile(
-                        subtitle: new Text(snapshot.value.toString()),
-                      );
-                    },
-                  ),
-
-                   */
                 ],
               ),
             ),
@@ -235,27 +165,11 @@ class _MunicipioInfoState extends State<MunicipioInfo> {
       ),
     );
   }
-
   void _onZonaAdded(Event event) {
     setState(() {
       lists.add(new Zona.fromSnapShop(event.snapshot));
       print("una prueba yaabkfenf");
       print(lists);
     });
-  }
-
-  void _eliminarZona(BuildContext context, Zona zona, int position) async {
-    await zonareferencia.child(zona.id).remove().then((_) {
-      setState(() {
-        lists.removeAt(position);
-        // Navigator.of(context).pop();
-      });
-    });
-  }
-  void _editZona(BuildContext context, Zona zona) async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ZonaScreen(zona)),
-    );
   }
 }

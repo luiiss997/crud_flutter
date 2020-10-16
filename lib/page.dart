@@ -1,3 +1,4 @@
+import 'package:crud_flutter/ui/muni_info_con.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
@@ -134,7 +135,7 @@ class _ListViewMunicipiosState extends State<ListViewMunicipios2>{
   void _navegarAlProducto(BuildContext context, Municipio municipio, Aspecto aspecto) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MunicipioInfo(municipio, aspecto)),
+      MaterialPageRoute(builder: (context) => MunicipioInfoC(municipio, aspecto)),
     );
   }
 
